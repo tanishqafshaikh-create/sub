@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teacher Anita's Class – Std 1 to 5 Lessons</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffdf7;--card:#fff;--ink:#1f2a5c;--mute:#5b6490;--line:#e6e0cc;--accent:#f6c945;--green:#2f6f5e;--coral:#e8604c;--on-accent:#1f2a5c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a38;--card:#1d2550;--ink:#f4f1e6;--mute:#aab2dc;--line:#2f3a72;--green:#6fcab3;--coral:#ff8a76}}
+:root[data-theme="dark"]{--bg:#141a38;--card:#1d2550;--ink:#f4f1e6;--mute:#aab2dc;--line:#2f3a72;--green:#6fcab3;--coral:#ff8a76}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:'Baloo 2',system-ui,sans-serif;line-height:1.1;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding:48px 0 32px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800}
+.hero p{color:var(--mute);max-width:46ch;margin:14px 0 0}
+.board{background:#1f4d41;color:#f4f1e6;border:8px solid #b98a52;border-radius:10px;padding:22px;min-height:190px}
+.board b{font-family:'Baloo 2';font-size:1.5rem;display:block;margin-bottom:6px}
+.board span{opacity:.85}
+.filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--line);padding:12px 0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}
+.row label{font-weight:700;min-width:64px;color:var(--mute)}
+button.chip{font:700 15px Nunito,sans-serif;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px 15px;cursor:pointer}
+button.chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.books{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;padding:28px 0 56px}
+.book{background:var(--card);border:2px solid var(--line);border-radius:6px 16px 16px 6px;border-left:12px solid var(--c);padding:18px}
+.book h3{font-size:1.4rem}
+.book small{color:var(--mute);display:block;margin:2px 0 12px}
+.ch{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-top:1px dashed var(--line);padding:9px 2px;font:600 16px Nunito,sans-serif;color:var(--ink);cursor:pointer}
+.ch:hover{color:var(--coral)}
+.ch i{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:13px}
+.ch.done i{background:var(--green);border-color:var(--green);color:#fff}
+.bar{height:7px;background:var(--line);border-radius:9px;margin-bottom:8px;overflow:hidden}.bar div{height:100%;background:var(--green)}
+dialog{border:0;border-radius:16px;padding:0;max-width:600px;width:calc(100% - 32px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(10,14,40,.6)}
+.d{padding:22px}
+.video{background:#1f4d41;color:#f4f1e6;border-radius:10px;aspect-ratio:16/9;display:grid;place-items:center;text-align:center;margin:14px 0}
+.play{width:64px;height:64px;border-radius:50%;background:var(--accent);margin:0 auto 8px;display:grid;place-items:center;color:var(--on-accent);font-size:26px}
+.d ol{padding-left:22px;margin:8px 0 16px}
+.act{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:700 16px Nunito,sans-serif;border:0;border-radius:10px;padding:10px 18px;cursor:pointer;background:var(--accent);color:var(--on-accent)}
+.btn.alt{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.empty{padding:40px 0;color:var(--mute)}
+footer{border-top:2px solid var(--line);padding:20px 0 28px;color:var(--mute);font-size:15px}
+@media(max-width:720px){.hero{grid-template-columns:1fr;padding-top:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Every chapter, explained by Teacher Anita</h1>
+      <p>Pick your board and standard, open a book, and learn one chapter at a time. Tick a chapter when you finish it.</p>
+    </div>
+    <div class="board"><b>Today in class</b><span id="today">Choose a book below to begin.</span></div>
+  </section>
+</div>
+<div class="filters"><div class="wrap">
+  <div class="row"><label>Board</label><span id="fb"></span></div>
+  <div class="row"><label>Standard</label><span id="fs"></span></div>
+  <div class="row"><label>Subject</label><span id="fj"></span></div>
+</div></div>
+<main class="wrap"><div class="books" id="books"></div></main>
+<footer><div class="wrap">Chapter lists are sample outlines. Replace them with your textbook's own chapters in the CHAPTERS data inside this file.</div></footer>
+
+<dialog id="dlg"><div class="d" id="dbody"></div></dialog>
+
+<script>
+const TEACHER="Teacher Anita";
+const BOARDS={
+ "CBSE":{Maths:"Math-Magic",English:"Marigold",EVS:"Looking Around"},
+ "ICSE":{Maths:"Maths Together",English:"Rhyme & Reason",EVS:"Our World"},
+ "Maharashtra":{Maths:"Ganit (Balbharati)",English:"My English Book",EVS:"Parisar Abhyas"}};
+const SUBJ={Maths:"#e8604c",English:"#2f6f5e",EVS:"#d99a00"};
+const CH={
+ Maths:{1:["Shapes and Space","Numbers 1 to 9","Counting Objects","Addition Basics","Taking Away"],
+        2:["Counting in Groups","Numbers up to 100","Adding Two Digits","Subtracting Two Digits","Telling Time"],
+        3:["Numbers up to 1000","Addition with Carrying","Subtraction with Borrowing","Multiplication Tables","Money and Measures"],
+        4:["Large Numbers","Multiplication Methods","Division Basics","Fractions","Perimeter and Area"],
+        5:["Place Value to Lakhs","Factors and Multiples","Fractions and Decimals","Measurement","Data Handling"]},
+ English:{1:["Alphabet Sounds","Three-Letter Words","Rhymes and Songs","Naming Words","My Family"],
+        2:["Short Vowel Words","Simple Sentences","Action Words","Picture Stories","Describing Words"],
+        3:["Nouns and Pronouns","Verbs and Tenses","Reading a Story","Writing a Paragraph","Opposites and Rhymes"],
+        4:["Adjectives and Adverbs","Prepositions","Comprehension Passages","Letter Writing","Poems"],
+        5:["Types of Sentences","Tenses in Depth","Story Comprehension","Essay Writing","Idioms and Vocabulary"]},
+ EVS:{1:["My Body","Plants Around Us","Animals and Their Homes","Food We Eat","Our Helpers"],
+        2:["Clean Habits","Birds and Animals","Water","Festivals","Weather and Seasons"],
+        3:["Living and Non-Living","Plants and Their Parts","Our Solar System","Safety Rules","Our Neighbourhood"],
+        4:["Food and Nutrition","Soil and Rocks","Air and Water","Our Environment","Forts, Monuments and Maps"],
+        5:["The Human Body","Forces and Machines","Water Cycle","Natural Resources","India: Land and People"]}
+};
+const sel={b:"CBSE",s:1,j:"All"};
+let done={};try{done=JSON.parse(localStorage.getItem("prog")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("prog",JSON.stringify(done))}catch(e){}};
+const key=(b,s,j,c)=>[b,s,j,c].join("|");
+function chips(id,items,k){
+ const el=document.getElementById(id);el.innerHTML="";
+ items.forEach(v=>{const x=document.createElement("button");x.className="chip";x.textContent=(k==="s"&&v!=="All")?"Std "+v:v;
+  x.setAttribute("aria-pressed",String(sel[k]===v));x.onclick=()=>{sel[k]=v;render()};el.appendChild(x)});
+}
+function render(){
+ chips("fb",Object.keys(BOARDS),"b");chips("fs",[1,2,3,4,5],"s");chips("fj",["All","Maths","English","EVS"],"j");
+ const box=document.getElementById("books");box.innerHTML="";
+ const subs=sel.j==="All"?Object.keys(SUBJ):[sel.j];
+ subs.forEach(j=>{
+  const list=CH[j][sel.s];const n=list.filter(c=>done[key(sel.b,sel.s,j,c)]).length;
+  const d=document.createElement("article");d.className="book";d.style.setProperty("--c",SUBJ[j]);
+  d.innerHTML=`<h3>${j}</h3><small>${BOARDS[sel.b][j]} · Std ${sel.s} · ${sel.b}</small>
+   <div class="bar" role="progressbar" aria-valuenow="${n}" aria-valuemax="${list.length}"><div style="width:${n/list.length*100}%"></div></div>`;
+  list.forEach((c,i)=>{const b=document.createElement("button");const k=key(sel.b,sel.s,j,c);
+   b.className="ch"+(done[k]?" done":"");b.innerHTML=`<i>${done[k]?"✓":""}</i><span>Chapter ${i+1}: ${c}</span>`;
+   b.onclick=()=>open(j,c,i+1);d.appendChild(b)});
+  box.appendChild(d)});
+}
+function open(j,c,n){
+ const k=key(sel.b,sel.s,j,c);const dlg=document.getElementById("dlg");
+ document.getElementById("today").textContent=`${TEACHER} is teaching ${j}, Chapter ${n}: ${c} (Std ${sel.s}, ${sel.b}).`;
+ document.getElementById("dbody").innerHTML=`<h2>${c}</h2>
+  <p style="margin:4px 0 0;color:var(--mute)">${j} · Std ${sel.s} · ${sel.b} · Chapter ${n} with ${TEACHER}</p>
+  <div class="video"><div><div class="play">▶</div>Lesson video goes here</div></div>
+  <strong>In this lesson</strong>
+  <ol><li>Warm-up question</li><li>${TEACHER} explains "${c}" with examples</li><li>Try it yourself</li><li>Homework</li></ol>
+  <div class="act"><button class="btn" id="mk">${done[k]?"Mark as not done":"Mark chapter as done"}</button><button class="btn alt" id="cl">Close</button></div>`;
+ document.getElementById("mk").onclick=()=>{done[k]=!done[k];save();dlg.close();render()};
+ document.getElementById("cl").onclick=()=>dlg.close();
+ dlg.showModal();
+}
+render();
+</script>
+</body>
+</html>
